@@ -1,0 +1,48 @@
+
+# Analyzing federal student aid per student in Connecticut
+
+This repository contains source data and analysis code for the Trend CT story:
+
+* [Students for-profit schools draw disproportionate share of federal aid](http://trendct.org/2016/07/11/students-at-for-profit-schools-draw-disproportionate-share-of-federal-aid/)
+
+# Walkthroughs
+
+* Analyzing federal student aid per student - [[RMarkdown](https://jlerner1.github.io/FAFSA/)]
+
+### The Data
+
+* Loans from 2010-11 - [Loans](https://github.com/jlerner1/FAFSA/blob/master/CSV.Files/Loans.6/DL_Dashboard_AY2010_2011_Q4.xls) 
+* Loans from 2011-12 - [Loans](https://github.com/jlerner1/FAFSA/blob/master/CSV.Files/Loans.6/DL_Dashboard_AY2011_2012_Q4.xls)
+* Loans from 2012-13 - [Loans](https://github.com/jlerner1/FAFSA/blob/master/CSV.Files/Loans.5/DL_Dashboard_AY2012_2013_Q4.xls)
+* Loans from 2013-14 - [Loans](https://github.com/jlerner1/FAFSA/blob/master/CSV.Files/Loans.5/DL_Dashboard_AY2013_2014_Q4.xls)
+* Loans from 2014-15 - [Loans](https://github.com/jlerner1/FAFSA/blob/master/CSV.Files/Loans.5/DL_Dashboard_AY2014_2015_Q4.xls)
+* Grants from 2010-11 - [Grants](https://github.com/jlerner1/FAFSA/blob/master/CSV.Files/Grants.5/Q41011AY.xls) 
+* Grants from 2011-12 - [Grants](https://github.com/jlerner1/FAFSA/blob/master/CSV.Files/Grants.3/Q41112AY.xls)
+* Grants from 2012-13 - [Grants](https://github.com/jlerner1/FAFSA/blob/master/CSV.Files/Grants.3/Q41213AY.xls)
+* Grants from 2013-14 - [Grants](https://github.com/jlerner1/FAFSA/blob/master/CSV.Files/Grants.3/Q41314AY.xls)
+* Grants from 2014-15 - [Grants](https://github.com/jlerner1/FAFSA/blob/master/CSV.Files/Grants.3/Q41415AY.xls)
+* Campus-based aid from 2010-11 - [Campus](https://github.com/jlerner1/FAFSA/blob/master/CSV.Files/Campus/2010-11CBData.xls) 
+* Campus-based aid from 2011-12 - [Campus](https://github.com/jlerner1/FAFSA/blob/master/CSV.Files/Campus/2011-12CBData.xls)
+* Campus-based aid from 2012-13 - [Campus](https://github.com/jlerner1/FAFSA/blob/master/CSV.Files/Campus/2012-13CBData.xls)
+* Campus-based aid from 2013-14 - [Campus](https://github.com/jlerner1/FAFSA/blob/master/CSV.Files/Campus/2013-14CBData.xls)
+* Campus-based aid from 2014-15 - [Campus](https://github.com/jlerner1/FAFSA/blob/master/CSV.Files/Campus/2014-15CBData.xls)
+* Enrollment from 2010-11 - [Enrollment](https://github.com/jlerner1/FAFSA/blob/master/CSV.Files/Enrollment/2010-11.enroll.CT.xls) 
+* Enrollment from 2011-12 - [Enrollment](https://github.com/jlerner1/FAFSA/blob/master/CSV.Files/Enrollment/2011-12.enroll.CT.xls)
+* Enrollment from 2012-13 - [Enrollment](https://github.com/jlerner1/FAFSA/blob/master/CSV.Files/Enrollment/2012-13.enroll.CT.xls)
+* Enrollment from 2013-14 - [Enrollment](https://github.com/jlerner1/FAFSA/blob/master/CSV.Files/Enrollment/2013-14.enroll.CT.xls)
+
+
+### What's in this repo
+
+* `data`[folder]((https://github.com/jlerner1/FAFSA/tree/master)) with raw data, modified data.
+* `analysis.R` is an R script analyzing the datasets.
+
+### Philosophy
+
+We believe in open data. Our scripts may be too technical for the average reader, but we make it accessible because we believe it is important to be as transparent as possible about our methodology so our work can be checked or expanded upon. 
+
+Check us out on Twitter [@TrendCT](http://www.trendct.org) and on [Facebook/TrendCT](https://www.facebook.com/trendct/).
+
+### Usage
+
+If you use our data or methodology, please give us a shout out in your story. It'd also be nice if you gave me a heads up: [@jess__lerner](https://twitter.com/jess__lerner) or jlerner@ctmirror.org.
