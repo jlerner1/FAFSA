@@ -7,7 +7,11 @@
 ~%2FDocuments%2FCT%20Mirror%2FFAFSA%2Fgrants.10-16.csv="76691F21"
 ~%2FDocuments%2FCT%20Mirror%2FFAFSA%2Findex.Rmd="E4CE335E"
 ~%2FDocuments%2FCT%20Mirror%2FFAFSA%2Freadme.md="DCA3F06D"
+<<<<<<< HEAD
 ~%2FDocuments%2FCT.Mirror%2FFAFSA%2Freadme.Rmd="505A398"
+=======
+~%2FDocuments%2FCT.Mirror%2FFAFSA%2Freadme.Rmd="CBB06753"
+>>>>>>> gh-pages
 ~%2FDocuments%2FInstalling.Packages.R="57CD073"
 ~%2FDocuments%2FR%20Code%2FBring.Excel.R="5F6F3F98"
 ~%2FDocuments%2FR%20Code%2FEnroll.R="6E1D1886"
