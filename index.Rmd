@@ -1,0 +1,579 @@
+---
+title: "Federal Student Aid Per Student Analysis"
+output: html_document
+---
+## Creating Loops for Processing Data for Loans 2010-12
+
+```{r temp, results="hide", message=FALSE, warning=FALSE}
+
+# Loading Libraries
+
+library(readxl)
+library(tidyr)
+library(stringr)
+library(dplyr)
+library(DT)
+
+# Setting Up Directory and Gathering a List
+
+list_files <- list.files(path = "CSV.Files")
+
+list_files_loans_6 <- list_files <- list.files(path = "CSV.Files/Loans.6")
+
+# Looping for Bringing in Excel Files
+
+# Loan.6 Looping
+
+## Loop Length
+
+loan_length_6 <- length(list_files_loans_6)
+for (i in 1:loan_length_6) {
+
+## i is what cycle the loop is on
+  
+loan_filename_6 <- list_files_loans_6[i] 
+
+## Choosing Excel Files to Loop and Creating Path Names
+
+path_name_loans_6 <-  paste0("CSV.Files/Loans.6/", loan_filename_6)
+print(path_name_loans_6)
+
+temp_dataframe_6 <- read_excel(path_name_loans_6, sheet = 2, col_names = TRUE, col_types = NULL, na = "", skip = 5) 
+
+## Changing Column Names
+
+colnames(temp_dataframe_6) <- c("OPE.ID", "School", "State", "Zip.Code", "School.Type", "Recipients.1", "Loans.No.1", "Loans.Sum.1", "Disbursements.No.1", "Disbursements.Sum.1", "Recipients.2", "Loans.No.2", "Loans.Sum.2", "Disbursements.No.2", "Disbursements.Sum.2","Recipients.3", "Loans.No.3", "Loans.Sum.3", "Disbursements.No.3", "Disbursements.Sum.3", "Recipients.4", "Loans.No.4", "Loans.Sum.4", "Disbursements.No.4", "Disbursements.Sum.4", "Recipients.5", "Loans.No.5", "Loans.Sum.5", "Disbursements.No.5", "Disbursements.Sum.5",
+"Recipients.6", "Loans.No.6", "Loans.Sum.6", "Disbursements.No.6", "Disbursements.Sum.6")
+
+temp_dataframe_6 <- temp_dataframe_6[c("School", "State", "School.Type", "Disbursements.Sum.1", "Disbursements.Sum.2", "Disbursements.Sum.3", "Disbursements.Sum.4", "Disbursements.Sum.5", "Disbursements.Sum.6")]
+                                   
+temp_dataframe_6$Total.Disbursements <- temp_dataframe_6$Disbursements.Sum.1 + temp_dataframe_6$Disbursements.Sum.2 + temp_dataframe_6$Disbursements.Sum.3 + temp_dataframe_6$Disbursements.Sum.4 + temp_dataframe_6$Disbursements.Sum.5 + temp_dataframe_6$Disbursements.Sum.6
+
+temp_dataframe_6 <- temp_dataframe_6[c("School", "State", "School.Type", "Total.Disbursements")]
+
+temp_dataframe_6$Year <- loan_filename_6
+
+temp_dataframe_6$Year <- gsub("DL_Dashboard_AY", "", temp_dataframe_6$Year)
+temp_dataframe_6$Year <- gsub("_Q4.xls", "", temp_dataframe_6$Year)
+
+if (i == 1) {
+mega_dataframe_6 <- temp_dataframe_6  
+} else (
+  mega_dataframe_6 <- rbind(mega_dataframe_6, temp_dataframe_6)
+)
+
+}
+
+```
+
+### Table for Loans 2010-12
+```{r table, warning=FALSE}
+
+datatable(mega_dataframe_6)
+
+```
+
+
+
+
+## Creating Loops for Processing Data for Loans 2012-16
+```{r temp2, results="hide", message=FALSE, warning=FALSE}
+# Gathering a List
+
+list_files <- list.files(path = "CSV.Files")
+
+list_files_loans_5 <- list_files <- list.files(path = "CSV.Files/Loans.5")
+
+# Loan.5 Looping
+
+## Loop Length
+
+loan_length_5 <- length(list_files_loans_5)
+for (i in 1:loan_length_5) {
+  
+## i is what cycle the loop is on
+  
+loan_filename_5 <- list_files_loans_5[i] 
+  
+## Choosing Excel Files to Loop and Creating Path Names
+  
+path_name_loans_5 <- paste0("CSV.Files/Loans.5/", loan_filename_5)
+print(path_name_loans_5)
+  
+temp_dataframe_5 <- read_excel(path_name_loans_5, sheet = 2, col_names = TRUE, col_types = NULL, na = "", skip = 5) 
+  
+## Changing Column Names
+  
+colnames(temp_dataframe_5) <- c("OPE.ID", "School", "State", "Zip.Code", "School.Type", "Recipients.1", "Loans.No.1", "Loans.Sum.1", "Disbursements.No.1", "Disbursements.Sum.1", "Recipients.2", "Loans.No.2", "Loans.Sum.2", "Disbursements.No.2", "Disbursements.Sum.2", "Recipients.3", "Loans.No.3", "Loans.Sum.3", "Disbursements.No.3", "Disbursements.Sum.3", "Recipients.4", "Loans.No.4", "Loans.Sum.4", "Disbursements.No.4", "Disbursements.Sum.4", "Recipients.5", "Loans.No.5", "Loans.Sum.5", "Disbursements.No.5", "Disbursements.Sum.5")
+                                
+temp_dataframe_5 <- temp_dataframe_5[c("School", "State", "School.Type", "Disbursements.Sum.1", "Disbursements.Sum.2", "Disbursements.Sum.3", "Disbursements.Sum.4", "Disbursements.Sum.5")]
+
+temp_dataframe_5$Total.Disbursements <- temp_dataframe_5$Disbursements.Sum.1 + temp_dataframe_5$Disbursements.Sum.2 + temp_dataframe_5$Disbursements.Sum.3 + temp_dataframe_5$Disbursements.Sum.4 + temp_dataframe_5$Disbursements.Sum.5
+
+temp_dataframe_5 <- temp_dataframe_5[c("School", "State", "School.Type", "Total.Disbursements")]
+  
+temp_dataframe_5$Year <- loan_filename_5
+  
+temp_dataframe_5$Year <- gsub("DL_Dashboard_AY", "", temp_dataframe_5$Year)
+temp_dataframe_5$Year <- gsub("_Q4.xls", "", temp_dataframe_5$Year)
+  
+if (i == 1) {
+mega_dataframe_5 <- temp_dataframe_5  
+} else (
+  mega_dataframe_5 <- rbind(mega_dataframe_5, temp_dataframe_5)
+)
+
+}
+
+```
+
+### Table for Loans 2012-16
+```{r table2, warning=FALSE}
+
+datatable(mega_dataframe_5)
+
+```
+
+
+
+## Creating Loops for Processing Data for Grants 2010-11
+```{r temp4, results="hide", message=FALSE, warning=FALSE}
+# Grant.5 Looping
+
+## File Names
+
+list_files_grants_5 <- list_files <- list.files(path = "CSV.files/Grants.5")
+
+## Loop Length
+
+grant_length_5 <- length(list_files_grants_5)
+  
+## i is what cycle the loop is on
+  
+grant_filename_5 <- list_files_grants_5 
+  
+## Choosing Excel Files to Loop and Creating Path Names
+  
+path_name_grants_5 <- paste0("CSV.Files/Grants.5/", grant_filename_5)
+print(path_name_grants_5)
+  
+temp_dataframe.5 <- read_excel(path_name_grants_5, sheet = 3, col_names = TRUE, col_types = NULL, na = "", skip = 5) 
+## Changing Column Names
+  
+colnames(temp_dataframe.5) <- make.names(colnames(temp_dataframe.5))
+  
+colnames(temp_dataframe.5) <- c("OPE.ID", "School", "State", "Zip.Code", "School.Type", "YTD.Recipients.1", "YTD.Disbursements.1", "YTD.Recipients.2", "YTD.Disbursements.2", "YTD.Recipients.3", "YTD.Disbursements.3", "YTD.Recipients.4", "YTD.Disbursements.4", "YTD.Recipients.5", "YTD.Disbursements.5") 
+  
+temp_dataframe.5 <- temp_dataframe.5[c("School", "State", "School.Type", "YTD.Disbursements.1", "YTD.Disbursements.2", "YTD.Disbursements.3", "YTD.Disbursements.4", "YTD.Disbursements.5")]
+  
+temp_dataframe.5$Total.Disbursements <- temp_dataframe.5$YTD.Disbursements.1 + temp_dataframe.5$YTD.Disbursements.2 + temp_dataframe.5$YTD.Disbursements.3 + temp_dataframe.5$YTD.Disbursements.4 + temp_dataframe.5$YTD.Disbursements.5
+  
+temp_dataframe.5 <- temp_dataframe.5[c("School", "State", "School.Type", "Total.Disbursements")]
+
+temp_dataframe.5$Year <- grant_filename_5
+  
+temp_dataframe.5$Year <- gsub("Q4", "", temp_dataframe.5$Year)
+temp_dataframe.5$Year <- gsub("AY.xls", "", temp_dataframe.5$Year)
+  
+```
+
+### Table for Grants 2010-11
+```{r table4, warning=FALSE}
+
+datatable(temp_dataframe.5)
+
+```
+
+
+
+
+## Creating Loops for Processing Data for Grants 2011-16
+```{r temp3, results="hide", message=FALSE, warning=FALSE}
+
+# Grant.3 Looping
+
+## File Names
+
+list_files_grants_3 <- list_files <- list.files(path = "CSV.files/Grants.3")
+
+## Loop Length
+
+grant_length_3 <- length(list_files_grants_3)
+for (i in 1:grant_length_3) {
+  
+## i is what cycle the loop is on
+  
+grant_filename_3 <- list_files_grants_3[i] 
+  
+## Choosing Excel Files to Loop and Creating Path Names
+  
+path_name_grants_3 <-  paste0("CSV.Files/Grants.3/", grant_filename_3)
+print(path_name_grants_3)
+  
+temp_dataframe_3 <- read_excel(path_name_grants_3, sheet = 3, col_names = TRUE, col_types = NULL, na = "", skip = 5) 
+## Changing Column Names
+
+colnames(temp_dataframe_3) <- make.names(colnames(temp_dataframe_3))
+  
+colnames(temp_dataframe_3) <- c("OPE.ID", "School", "State", "Zip.Code", "School.Type", "YTD.Recipients.1", "YTD.Disbursements.1", "YTD.Recipients.2", "YTD.Disbursements.2", "YTD.Recipients.3", "YTD.Disbursements.3")
+
+temp_dataframe_3 <- temp_dataframe_3[c("School", "State", "School.Type", "YTD.Disbursements.1", "YTD.Disbursements.2", "YTD.Disbursements.3")]
+  
+temp_dataframe_3$Total.Disbursements <- temp_dataframe_3$YTD.Disbursements.1 + temp_dataframe_3$YTD.Disbursements.2 + temp_dataframe_3$YTD.Disbursements.3
+  
+temp_dataframe_3 <- temp_dataframe_3[c("School", "State", "School.Type", "Total.Disbursements")]
+  
+temp_dataframe_3$Year <- grant_filename_3
+  
+temp_dataframe_3$Year <- gsub("Q4", "", temp_dataframe_3$Year)
+temp_dataframe_3$Year <- gsub("AY.xls", "", temp_dataframe_3$Year)
+  
+if (i == 1) {
+mega_dataframe_3 <- temp_dataframe_3
+} else (
+  mega_dataframe_3 <- rbind(mega_dataframe_3, temp_dataframe_3)
+)
+  
+}
+
+```
+
+### Table for Grants 2011-16
+```{r table3, warning=FALSE}
+
+datatable(mega_dataframe_3)
+
+```
+
+
+## Creating Loops for Processing Data for Campus-Based Programs 2010-15
+```{r temp5, results="hide", message=FALSE, warning=FALSE}
+
+# Gathering a List
+
+list_files <- list.files(path = "CSV.Files")
+
+list_files_campus <- list_files <- list.files(path = "CSV.Files/Campus")
+
+campus_length <- length(list_files_campus)
+for (i in 1:campus_length) {
+  
+## i is what cycle the loop is on
+  
+campus_filename <- list_files_campus[i] 
+
+## Choosing Excel Files to Loop and Creating Path Names
+  
+path_name_campus <-  paste0("CSV.Files/Campus/", campus_filename)
+print(path_name_campus)
+
+temp_dataframe_campus <- read_excel(path_name_campus, sheet = 1, col_names = TRUE, col_types = NULL, na = "", skip = 3) 
+  
+  
+## Changing Column Names
+  
+colnames(temp_dataframe_campus) <- c("OPE.ID", "School", "State", "Zip.Code", "School.Type", "Recipients.1", "Federal.Award.1", "Disbursements.1", "Recipients.2", "Federal.Award.2", "Disbursements.2", "Recipients.3", "Federal.Award.3", "Disbursements.3")
+  
+temp_dataframe_campus <- temp_dataframe_campus[c("School", "State", "School.Type", "Disbursements.1", "Disbursements.2", "Disbursements.3")]
+  
+temp_dataframe_campus$Total.Disbursements <- temp_dataframe_campus$Disbursements.1 + temp_dataframe_campus$Disbursements.2 + temp_dataframe_campus$Disbursements.3
+  
+temp_dataframe_campus <- temp_dataframe_campus[c("School", "State", "School.Type", "Total.Disbursements")]
+  
+temp_dataframe_campus$Year <- campus_filename
+  
+temp_dataframe_campus$Year <- gsub("CBData.xls", "", temp_dataframe_campus$Year)
+ 
+if (i == 1) {
+mega_dataframe_campus <- temp_dataframe_campus  
+} else (
+  mega_dataframe_campus <- rbind(mega_dataframe_campus, temp_dataframe_campus)
+)
+  
+}
+
+```
+
+
+### Table for Campus-Based Programs 2010-15
+
+```{r table5, warning=FALSE}
+
+datatable(mega_dataframe_campus)
+
+```
+
+
+
+
+## Totaling Federal Student Aid
+
+```
+I exported the dataframes above and renamed them when I imported them.
+```
+
+```{r temp6, results="hide", message=FALSE, warning=FALSE}
+
+# Importing CSV Files
+
+grants.10.11 <- read.csv(file = "grants.10-11.csv")
+grants.11.16 <- read.csv(file = "grants.11-16.csv")
+loans.10.12 <- read.csv(file = "loans.10-12.csv")
+loans.12.16 <- read.csv(file = "loans.12-16.csv")
+campus.10.15 <- read.csv(file = "campus.10-15.csv")
+
+# Joining
+
+loans.10.16 <- full_join(loans.10.12, loans.12.16)
+grants.10.16 <- full_join(grants.10.11, grants.11.16)
+
+# Grouping
+
+loan.state.summary <- loans.10.16 %>%
+  group_by(State, School.Type, Year) %>%
+  summarise(Sum.Type.loan=sum(Total.Disbursements))
+
+grant.state.summary <- grants.10.16 %>%
+  group_by(State, School.Type, Year) %>%
+  summarise(Sum.Type.grant=sum(Total.Disbursements))
+
+campus.state.summary <- campus.10.15 %>%
+  group_by(State, School.Type, Year) %>%
+  summarise(Sum.Type.campus=sum(Total.Disbursements))
+
+loan.state.summary <- subset(loan.state.summary, !is.na(loan.state.summary$State))
+grant.state.summary <- subset(grant.state.summary, !is.na(grant.state.summary$State))
+campus.state.summary <- subset(campus.state.summary, !is.na(campus.state.summary$State))
+
+# Fixing Cases
+
+loan.state.summary$School.Type <- str_to_title(loan.state.summary$School.Type)
+
+grant.state.summary$School.Type <- str_to_title(grant.state.summary$School.Type)
+
+campus.state.summary$School.Type <- str_to_title(campus.state.summary$School.Type)
+
+loan.state.summary$School.Type <- gsub("Private-Nonprofit", "Private", loan.state.summary$School.Type)
+
+grant.state.summary$School.Type <- gsub("Private-Nonprofit", "Private", grant.state.summary$School.Type)
+
+campus.state.summary$School.Type <- gsub("Private/Non-Profit", "Private", campus.state.summary$School.Type)
+
+loan.state.summary$School.Type <- gsub("Foreign*", "", loan.state.summary$School.Type)
+
+grant.state.summary$School.Type <- gsub("Foreign*", "", grant.state.summary$School.Type)
+
+campus.state.summary$School.Type <- gsub("Foreign*", "", campus.state.summary$School.Type)
+
+loan.state.summary$Year <- gsub("2010_2011", "1011", loan.state.summary$Year)
+
+loan.state.summary$Year <- gsub("2011_2012", "1112", loan.state.summary$Year)
+
+loan.state.summary$Year <- gsub("2012_2013", "1213", loan.state.summary$Year)
+
+loan.state.summary$Year <- gsub("2013_2014", "1314", loan.state.summary$Year)
+
+loan.state.summary$Year <- gsub("2014_2015", "1415", loan.state.summary$Year)
+
+loan.state.summary$Year <- gsub("2015_2016", "1516", loan.state.summary$Year)
+
+campus.state.summary$Year <- gsub("2010-11", "1011", campus.state.summary$Year)
+
+campus.state.summary$Year <- gsub("2011-12", "1112", campus.state.summary$Year)
+
+campus.state.summary$Year <- gsub("2012-13", "1213", campus.state.summary$Year)
+
+campus.state.summary$Year <- gsub("2013-14", "1314", campus.state.summary$Year)
+
+campus.state.summary$Year <- gsub("2014-15", "1415", campus.state.summary$Year)
+
+campus.state.summary$Year <- str_trim(campus.state.summary$Year)
+
+grant.state.summary$Year <- as.character(grant.state.summary$Year)
+
+campus.state.summary$Year <- as.character(campus.state.summary$Year)
+
+# Joining
+
+loans_grants_join <- full_join(loan.state.summary, grant.state.summary)
+
+# Subsetting
+
+loans_grants_join <- subset(loans_grants_join, !is.na(loans_grants_join$State))
+
+loans_grants_join <- subset(loans_grants_join, State!="FC")
+loans_grants_join <- subset(loans_grants_join, State!="PR")
+loans_grants_join <- subset(loans_grants_join, State!="GU")
+loans_grants_join <- subset(loans_grants_join, State!="AS")
+loans_grants_join <- subset(loans_grants_join, State!="FM")
+loans_grants_join <- subset(loans_grants_join, State!="MH")
+loans_grants_join <- subset(loans_grants_join, State!="MP")
+loans_grants_join <- subset(loans_grants_join, State!="VI")
+loans_grants_join <- subset(loans_grants_join, State!="PW")
+
+loans_grants_join$Total.Disbursement <- loans_grants_join$Sum.Type.loan + loans_grants_join$Sum.Type.grant
+
+campus.state.summary <- subset(campus.state.summary, !is.na(campus.state.summary$State))
+
+campus.state.summary <- subset(campus.state.summary, State!="FC")
+campus.state.summary <- subset(campus.state.summary, State!="PR")
+campus.state.summary <- subset(campus.state.summary, State!="GU")
+campus.state.summary <- subset(campus.state.summary, State!="AS")
+campus.state.summary <- subset(campus.state.summary, State!="FM")
+campus.state.summary <- subset(campus.state.summary, State!="MH")
+campus.state.summary <- subset(campus.state.summary, State!="MP")
+campus.state.summary <- subset(campus.state.summary, State!="VI")
+campus.state.summary <- subset(campus.state.summary, State!="PW")
+
+# Exporting
+
+loans_grants_join <- write.csv(loans_grants_join, "loans.grants.join.csv")
+campus.state.summary <- write.csv(campus.state.summary, "campus.csv")
+
+```
+
+```
+I had to export the files and manually join them in Excel and then import the finalized version because the 
+campus-based programs did not have data for the year 2015-16 and some proprietary schools were missing.
+```
+
+```{r temp8, results="hide", message=FALSE, warning=FALSE}
+
+# Importing
+
+loans.grants.campus.join <- read.csv(file = "loans.grants.campus.join.csv")
+
+# Fixing Cases
+
+loans.grants.campus.join$State <- str_trim(loans.grants.campus.join$State)
+loans.grants.campus.join$Total.Disbursement <- as.numeric(loans.grants.campus.join$Total.Disbursement)
+
+# Final Dataframe
+
+loans.grants.campus.total <- loans.grants.campus.join %>%
+  dplyr::select(State, School.Type, Year, Total.Disbursement) %>%
+  group_by(State, Year) %>%
+  mutate(Year.Total=sum(Total.Disbursement), Percent=round(Total.Disbursement/Year.Total, 4)) %>%
+  select(State, School.Type, Year, Percent) %>%
+spread(Year, Percent)
+
+
+```
+
+
+### Table for Total Federal Student Aid
+
+```{r table6, warning=FALSE}
+
+datatable(loans.grants.campus.total)
+
+```
+
+
+## Creating Looping and Totaling Enrollment
+
+```{r temp7, results="hide", message=FALSE, warning=FALSE}
+
+# Gathering a List
+
+list.files(path = "CSV.Files/Enrollment")
+list_files <- list.files(path = "CSV.Files/Enrollment")
+
+# Looping for Bringing in Excel Files
+
+# Enrollment Looping
+
+## File Names
+
+list_files_enroll <- list_files <- list.files(path = "CSV.Files/Enrollment")
+
+## Loop Length
+
+enroll_length <- length(list_files_enroll)
+for (i in 1:enroll_length) {
+  
+## i is what cycle the loop is on
+  
+enroll_filename <- list_files_enroll[i] 
+
+## Choosing Excel Files to Loop and Creating Path Names
+  
+path_name_enroll <-  paste0("CSV.Files/Enrollment/", enroll_filename)
+print(path_name_enroll)
+  
+  temp_enroll <- read_excel(path_name_enroll, sheet = 1, col_names = TRUE, col_types = NULL, na = "") 
+  
+  ## Changing Column Names
+  
+  colnames(temp_enroll) <- make.names(colnames(temp_enroll))
+  
+  temp_enroll$Year <- enroll_filename
+  
+  temp_enroll$Year <- gsub("2010-11.enroll.CT.xls", "2010-11", temp_enroll$Year)
+  temp_enroll$Year <- gsub("2011-12.enroll.CT.xls", "2011-12", temp_enroll$Year)
+  temp_enroll$Year <- gsub("2012-13.enroll.CT.xls", "2012-13", temp_enroll$Year)
+  temp_enroll$Year <- gsub("2013-14.enroll.CT.xls", "2013-14", temp_enroll$Year)
+  
+  if (i == 1) {
+    mega_enroll <- temp_enroll 
+  } else (
+    mega_enroll <- rbind(mega_enroll, temp_enroll)
+  )
+
+}
+
+## Exporting
+
+write.csv(mega_enroll, "enroll.10.14.final.csv")
+
+# Importing
+
+enroll.10.14 <- read.csv(file = "enroll.10.14.csv")
+
+college.name <- read_excel(path = "college.names.final.xlsx", sheet = 1, col_names = TRUE, col_types = NULL, na = "")
+
+
+# Changing Column Names
+
+enroll.10.14 <- enroll.10.14[c("School", "Enrollment", "Year")]
+college.name <- college.name[c("School", "Type")]
+college.name <- subset(college.name, !is.na(college.name$School))
+
+# Fixing Cases
+
+college.name$School <- str_to_title(college.name$School)
+enroll.10.14$School <- str_to_title(enroll.10.14$School)
+college.name$School <- str_trim(college.name$School)
+enroll.10.14$School <- str_trim(enroll.10.14$School)
+enroll.10.14$School <- as.character(enroll.10.14$School)
+
+# Joining
+
+enroll.join <- full_join(enroll.10.14, college.name)
+
+# Cleaning
+
+enroll.join <- subset(enroll.join, !is.na(enroll.join$Type))
+enroll.join <- subset(enroll.join, Enrollment!="NA")
+enroll.join$Enrollment <- as.numeric(enroll.join$Enrollment)
+
+# Final Dataframe
+
+enroll.final <- enroll.join %>%
+  dplyr::select(School, Enrollment, Type, Year) %>%
+  group_by(Year, Type) %>%
+  summarise(Enroll.Total=sum(Enrollment, na.rm=T)) %>%
+  mutate(Year.Total=sum(Enroll.Total), Percent=round(Enroll.Total/Year.Total, 4)) %>%
+  select(Type, Year, Percent) %>%
+  spread(Year, Percent)
+
+```
+
+
+### Table for Connecticut Enrollment
+
+```{r table7, warning=FALSE}
+
+datatable(enroll.final)
+
+```
